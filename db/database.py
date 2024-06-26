@@ -1,27 +1,26 @@
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-from flask import Flask
 import os
+import psycopg2
 
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
 
-app = Flask(__name__)
-
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-
 db = SQLAlchemy()
 ma = Marshmallow()
 
-# Test Connection to Database
-def test_connection():
-    try:
-        db.session.execute('SELECT 1')
-    except:
-        pass
-    print('Connection test successful!')
+def create_app():
+    app = Flask(__name__)
 
-test_connection()
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+    db.init_app(app)
+    ma.init_app(app)
+
+    with app.app_context():
+        db.create_all()
+
+    return app
 

@@ -1,17 +1,9 @@
-from db.database import app
+from db.database import create_app
+from flask_cors import CORS
 
+app = create_app()
 
-from db.database import test_connection
-
-@app.route('/')
-def hello_world():
-    return 'Hello, World!'
-
-@app.route('/connection_test')
-def connection_test():
-    if test_connection() == 'Connection test failed!':
-        return 'Connection test failed!'
-    return 'Connection test successful!'
+cors = CORS(app, supports_credentials=True)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host="0.0.0.0", debug=True)
