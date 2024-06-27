@@ -49,4 +49,3 @@ coverage.xml
 *.pot
 
 # Sphinx docume
-/Pipfile.lock
