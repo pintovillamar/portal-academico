@@ -11,6 +11,10 @@ app.register_blueprint(carrera_blueprint)
 app.register_blueprint(usuario_blueprint)
 app.register_blueprint(estudiante_blueprint)
 
+@app.route('/')
+def index():
+    return "Hello, World!"
+
 cors = CORS(app, supports_credentials=True)
 
 if __name__ == '__main__':
