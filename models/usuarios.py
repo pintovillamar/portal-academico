@@ -18,7 +18,8 @@ class Usuario(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime, default=datetime.now(), onupdate=datetime.now())
     
-    def __init__(self, password):
+    def __init__(self, usuario ,password):
+        self.usuario = usuario
         self.password = password
         
 class UsuarioSchema(ma.Schema):
@@ -47,7 +48,7 @@ class UsuarioModel:
         return usuario_schema.jsonify(usuario)
     
     # Read usuario (Read all)
-    def usuario(self):
+    def usuarios(self):
         usuarios = Usuario.query.all()
         return usuarios_schema.jsonify(usuarios)
     
