@@ -49,3 +49,4 @@ coverage.xml
 *.pot
 
 # Sphinx docume
+/scripts
